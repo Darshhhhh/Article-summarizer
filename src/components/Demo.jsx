@@ -7,6 +7,7 @@ const Demo = () => {
     summary: "",
   });
   const [allArticles, setAllArticles] = useState([]);
+  const [copied, setCopied] = useState("");
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
   useEffect(() => {
     const articleFromLocal = JSON.parse(localStorage.getItem("articles"));
@@ -15,7 +16,6 @@ const Demo = () => {
     }
   }, []);
   const handleSubmmit = async (e) => {
-    console.log("CLlicked");
     e.preventDefault();
     const { data } = await getSummary({ articleUrl: Article.url });
     if (data?.summary) {
@@ -24,8 +24,13 @@ const Demo = () => {
       setArticle(newArticle);
       setAllArticles(updatedArticles);
       localStorage.setItem("articles", JSON.stringify(updatedArticles));
-      console.log(newArticle);
     }
+  };
+
+  const ClickToCopy = (copyText) => {
+    setCopied(copyText);
+    navigator.clipboard.writeText(copyText);
+    setTimeout(() => setCopied(false), 3000);
   };
   return (
     <section className="mt-16 w-full max-w-xl">
@@ -72,9 +77,9 @@ const Demo = () => {
               onClick={() => setArticle(items)}
               className="link_card"
             >
-              <div className="copy_btn">
+              <div className="copy_btn" onClick={() => ClickToCopy(items?.url)}>
                 <img
-                  src={copy}
+                  src={copied === items.url ? tick : copy}
                   alt="copy_icon"
                   className="w-[40%] h-[40%] object-contain"
                 />
@@ -104,7 +109,9 @@ const Demo = () => {
                 Article <span className="blue_gradient">Summary</span>
               </h2>
               <div className="summary_box">
-                <p>{Article?.summary}</p>
+                <p className="font-medium text-sm text-gray-700">
+                  {Article?.summary}
+                </p>
               </div>
             </div>
           )
