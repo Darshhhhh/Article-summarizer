@@ -86,6 +86,30 @@ const Demo = () => {
           ))}
         </div>
       </div>
+      <div className="my-10 max-w-full flex justify-center items-center">
+        {isFetching ? (
+          <img src={loader} alt="loader" className="w-20 h-20 object-contain" />
+        ) : error ? (
+          <p className="font-bold text-black text-center">
+            Opps!! AI is Sleeping Try Again💤...
+            <br />
+            <span className="font-normal text-gray-700">
+              {error?.data?.error}
+            </span>
+          </p>
+        ) : (
+          Article?.summary && (
+            <div className="flex flex-col gap-3">
+              <h2 className="font-bold text-gray-600 text-xl">
+                Article <span className="blue_gradient">Summary</span>
+              </h2>
+              <div className="summary_box">
+                <p>{Article?.summary}</p>
+              </div>
+            </div>
+          )
+        )}
+      </div>
     </section>
   );
 };
