@@ -96,7 +96,7 @@ const Demo = () => {
           <img src={loader} alt="loader" className="w-20 h-20 object-contain" />
         ) : error ? (
           <p className="font-bold text-black text-center">
-            Opps!! AI is Sleeping Try Again💤...
+            Opps!! AI is Sleepingn!! Try Again After Some Time💤...
             <br />
             <span className="font-normal text-gray-700">
               {error?.data?.error}
