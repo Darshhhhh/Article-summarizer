@@ -25,7 +25,7 @@ const Hero = () => {
       <h2 className="desc">
         " Our AI-powered article summarizer tool is perfect for professionals,
         academics, and researchers because it can swiftly and simply summarise
-        lengthy articles with a few clicks. "
+        lengthy articles with a few clicks! "
       </h2>
     </header>
   );
